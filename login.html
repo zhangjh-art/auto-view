@@ -30,49 +30,70 @@
     </div>
 
     <script type="text/javascript">
-        	layui.extend({
-                system: '{/}./static/js/extends/system'
-			});
-            layui.use(['form','system'], function(){
-                var form = layui.form
-                var system = layui.system
-                form.verify({
-                    username: function(value){
-                        if(value.length == 0 ){
-                            return '用户名不能为空';
-                        }
+        layui.extend({
+            system: '{/}./static/js/extends/system'
+        });
+        layui.use(['form','system'], function(){
+            var form = layui.form
+            var system = layui.system
+            form.verify({
+                username: function(value){
+                    if(value.length == 0 ){
+                        return '用户名不能为空';
                     }
-                    ,pwd: [
-                        /^[\S]{6,12}$/
-                        ,'密码必须6到12位，且不能出现空格'
-                    ]
-                });
-                form.on('submit(login)', function(data){
-                    var userInfo = data.field
-                    userInfo.client_id = client_id;
-                    userInfo.client_secret = client_secret;
-                    userInfo.grant_type = grant_type;
-                    var url = basePath + 'base-auth/oauth/token';
-                    request({
-                        url:url,
-                        type:'post',
-                        data:userInfo,
-                        async: true,
-                        dataType: "json",
-                    }).then((data) => {
-                        if(data.access_token!=undefined||data.access_token!=""){
-                            localStorage.setItem("auto_token",data.access_token);
-                            location.href='./index.html'
-                        }else{
-                            layer.msg(data.msg,{icon: 5});//失败的表情
-                            return;
-                        }
-                    }).catch((error) => {
-                        layer.msg('服务器异常，请联系管理员！'+error,{icon: 5});//失败的表情
-                    })
-                    return false;//阻止表单跳转
+                }
+                ,pwd: [
+                    /^[\S]{6,12}$/
+                    ,'密码必须6到12位，且不能出现空格'
+                ]
+            });
+            form.on('submit(login)', function(data){
+                var userInfo = data.field
+                userInfo.client_id = client_id;
+                userInfo.client_secret = client_secret;
+                userInfo.grant_type = grant_type;
+                var url = basePath + 'base-auth/oauth/token';
+                request({
+                    url:url,
+                    type:'post',
+                    data:userInfo,
+                    async: true,
+                    dataType: "json",
+                }).then((data) => {
+                    if(data.access_token!=undefined||data.access_token!=""){
+                        localStorage.setItem("auto_token",data.access_token);
+                        getUserInfo(userInfo.username);
+                    }else{
+                        layer.msg(data.msg,{icon: 5});//失败的表情
+                        return;
+                    }
+                }).catch((error) => {
+                    layer.msg('服务器异常，请联系管理员！',{icon: 5});//失败的表情
                 })
-            });   
+                return false;//阻止表单跳转
+            })
+            function getUserInfo(username){
+                var requestPram = {
+                    username: username
+                };
+                var url = basePath + 'system/userManage/getUserInfoByName';
+                request({
+                    url:url,
+                    type: 'post',
+                    data: JSON.stringify(requestPram),
+                    async: true,
+                    dataType: "json",
+                }).then((data) => {
+                    //保存权限及用户信息后到localstorage后跳转首页
+                    localStorage.setItem("userInfo",JSON.stringify(data.data.user));
+                    localStorage.setItem("menuList",JSON.stringify(data.data.menuList));
+                    location.href='./index.html'
+                }).catch((error) => {
+                    layer.msg('服务器异常，请联系管理员！',{icon: 5});//失败的表情
+                })
+                //location.href='./index.html'
+            }
+        });   
     </script>  
     <!-- 底部结束 -->
 </body>
