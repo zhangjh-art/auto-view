@@ -37,7 +37,7 @@ layui.define('jquery', function(exports) {
 			var subUl = $('<ul></ul>').addClass('sub-menu');
 			$.each(menuList, function(index,menu) {
 				if(menu.leafis=="1"){//叶子节点
-					var subItem = '<li id="menu' + menu.id + '"><a _href="' + menu.url + '"><i class="iconfont">&#xe6a7;</i><cite>' +
+					var subItem = '<li id="menu' + menu.id + '"><a _href="' + menu.pageUrl + '"><i class="iconfont">&#xe6a7;</i><cite>' +
 					menu.name + '</cite></a></li>';
 					subItems.push(subItem);
 				}

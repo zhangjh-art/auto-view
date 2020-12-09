@@ -1,0 +1,79 @@
+body {
+    height: 100%!important;
+}
+.am-body {
+    padding: 20px 0px 0px 0px;
+    height: 100%;
+}
+.am-query {
+    font-size: 14px;
+    color: #494a4b;
+}
+.am-query label {
+    margin-right: 1.5rem;
+    line-height: 12px;
+}
+.am-query input {
+    height: 28px;
+    line-height: 28px;
+    padding-right: 30px;
+    width: 60%;
+    border-radius: 0.2rem;
+}
+.am-query .query-buttons {
+    text-align: center;
+}
+.am-query input:hover {
+    border-color: #409eff!important;
+}
+.am-query .layui-icon{
+    font-size: 12px;
+}
+
+
+
+/* 按钮公共样式 */
+button{
+    height: 28px!important;
+    line-height: 28px!important;
+    font-size: 13px!important;
+    padding-left: 15px!important;
+    padding-right: 15px!important;
+}
+.auto-tools .layui-icon{
+    font-size: 12px;
+}
+.auto-tools {
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-top: 1px solid #409EFF;
+    background-color: #F6F6F6;
+}
+.btn-warn{
+    background-color:#E6A23C;
+}
+.btn-main{
+    background-color:#409EFF;
+}
+.btn-suc{
+    background-color:#67C23A;
+}
+.btn-danger{
+    background-color:#F56C6C;
+}
+/* 数据表格样式设置 */
+.layui-table th{
+    font-size: 12px!important;
+}
+.layui-table-view {
+    margin: 0px!important;
+}
+.layui-table th{
+    background-color: #fff!important;
+    color: black;
+    font-weight: 600;
+}
+.layui-table-cell .layui-form-checkbox[lay-skin=primary]{
+    transform: scale(0.7,0.7);
+}
