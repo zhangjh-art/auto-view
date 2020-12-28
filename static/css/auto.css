@@ -8,6 +8,7 @@ body {
 .am-query {
     font-size: 14px;
     color: #494a4b;
+    padding-bottom: 1rem!important;
 }
 .am-query label {
     margin-right: 1.5rem;
@@ -62,6 +63,7 @@ button{
 .btn-danger{
     background-color:#F56C6C;
 }
+
 /* 数据表格样式设置 */
 .layui-table th{
     font-size: 12px!important;
@@ -76,4 +78,10 @@ button{
 }
 .layui-table-cell .layui-form-checkbox[lay-skin=primary]{
     transform: scale(0.7,0.7);
+}
+
+/* 表单样式设置 */
+.add-button{
+    text-align: center;
+    margin-top: 1rem;
 }

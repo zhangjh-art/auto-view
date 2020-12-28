@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>添加管理员-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/autoIndex.css" />
+    <link rel="stylesheet" href="../../static/css/auto.css" />
+  </head>
+  <body>
+    <div class="weadmin-body">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-md6">
+                        <label for="code" class="layui-form-label">
+                            <span class="we-red">*</span>工号名
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="code" name="code" required="" lay-verify="required"
+                            autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <label for="name" class="layui-form-label">
+                            <span class="we-red">*</span>姓名
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="name" name="name" required="" lay-verify="required"
+                            autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-md6">
+                        <label for="phone" class="layui-form-label">
+                            <span class="we-red">*</span>手机
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="phone" name="phone" required="" lay-verify="phone"
+                            autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <label for="L_email" class="layui-form-label">
+                            <span class="we-red">*</span>邮箱
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="L_email" name="email" required="" lay-verify="email"
+                            autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-md6">
+                        <label for="L_pass" class="layui-form-label">
+                            <span class="we-red">*</span>密码
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
+                            autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <label for="L_repass" class="layui-form-label">
+                            <span class="we-red">*</span>确认密码
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
+                            autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md12 add-button">
+                    <button  class="layui-btn btn-main" lay-filter="add" lay-submit="addUser">新增</button>
+                </div>
+            </div>
+      </form>
+    </div>
+    <script src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="js/addUser.js" charset="utf-8"></script>
+  </body>
+
+</html>
