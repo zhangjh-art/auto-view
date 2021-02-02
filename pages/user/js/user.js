@@ -1,11 +1,14 @@
 'use strict'
+
+var t;
+
 layui.extend({
     system: '../../static/js/extends/system'
 });
 layui.use(['form','system','table'], function(){
     $(document).ready(function () {
         var table = layui.table;
-        var t = table.render({
+        t = table.render({
             elem: '#data-table',
             height: 'full-170',
             where: {
@@ -28,10 +31,10 @@ layui.use(['form','system','table'], function(){
             method: "post",
             parseData: function(res){ //res 即为原始返回的数据
                 return {
-                    "code": '0', //解析接口状态
-                    "msg": '', //解析提示文本
+                    "code": res.code, //解析接口状态
+                    "msg": res.msg, //解析提示文本
                     "count": res.total, //解析数据长度
-                    "data": res.Data //解析数据列表
+                    "data": res.data //解析数据列表
                 };
             },
             cols: [[ //表头
@@ -48,40 +51,78 @@ layui.use(['form','system','table'], function(){
         });
         //根据条件查询用户列表
         $(document).on('click', '.query-user', function () {
-            // var requestPram = {
-            //     Data:{
-            //         code : $("#code").val(),
-            //         name : $("#code").val(),
-            //         contactTelephone : $("#phone").val()
-            //     },
-            //     pageNum : 0,
-            //     pageSize : 10
-            // };
-            // var url = basePath + 'system/userManage/queryUserList';
-            // request({
-            //     url:url,
-            //     type: 'post',
-            //     data: JSON.stringify(requestPram),
-            //     async: true,
-            //     dataType: "json",
-            // }).then((data) => {
-            //     console.log(data)
-            // }).catch((error) => {
-            //     layer.msg('查询用户列表失败！',{icon: 5});//失败的表情
-            // })
-            t.reload({
-                where: { //设定异步数据接口的额外参数，任意设
-                    Data:{
-                        code : $("#code").val(),
-                        name : $("#name").val(),
-                        contactTelephone : $("#phone").val()
-                    }
-                }
-            });
+            reloadTable()
         });
         //添加用户
         $(document).on('click', '.record-add', function () {
             WeAdminShow('新增用户','./addUser.html',$(window).width() * 0.8,350)
         });
+        //编辑用户
+        $(document).on('click', '.record-edit', function () {
+            //获取行记录
+            var selectData = table.checkStatus('data-table').data;
+            if(selectData.length!=1){
+                layer.msg("请选择一条记录", {
+                    icon: 5,
+                    time: 1000
+                });
+            }else{
+                WeAdminShow('编辑用户','./editUser.html',$(window).width() * 0.8,350,selectData);
+            }
+        });
+        //删除用户
+        $(document).on('click', '.record-delete', function () {
+            //获取行记录
+            var selectData = table.checkStatus('data-table').data;
+            if(selectData.length==0){
+                layer.msg("请选择至少一条记录", {
+                    icon: 5,
+                    time: 1000
+                });
+            }else{
+                layer.confirm('是否删除所选用户?', {icon: 3, title:'提示'}, function(index){
+                    var idList = [];
+                    //获取行记录
+                    for(var i = 0; i < selectData.length; i++){
+                        idList.push(selectData[i].id);
+                    }
+                    var requestPram = {};
+                    requestPram.idList = idList;
+                    var url = basePath + 'system/userManage/delUserByIds';
+                    request({
+                        url:url,
+                        type: 'post',
+                        data: JSON.stringify(requestPram),
+                        async: true,
+                        dataType: "json",
+                    }).then((data) => {
+                        if(data.code=="0"){
+                            layer.msg("删除成功", {icon: 6,time: 1000}, function(){
+                                reloadTable();
+                            });
+                        }else{
+                            layer.msg(data.msg, {
+                                icon: 5,
+                                time: 1000
+                            });
+                        }
+                    }).catch((error) => {
+                        layer.msg(error,{icon: 5});
+                    })
+                });
+            }
+        });
     }) 
+
+    window.reloadTable = function(){
+        t.reload({
+            where: { //设定异步数据接口的额外参数，任意设
+                Data:{
+                    code : $("#code").val(),
+                    name : $("#name").val(),
+                    contactTelephone : $("#phone").val()
+                }
+            }
+        });
+    }
 })

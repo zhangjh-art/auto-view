@@ -85,3 +85,14 @@ button{
     text-align: center;
     margin-top: 1rem;
 }
+
+
+.layui-laypage-em{
+    background-color: #409EFF!important;
+}
+.layui-laypage-btn{
+    display: none;
+}
+#layui-table-page1{
+    text-align: center!important;
+}
